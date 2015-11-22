@@ -1,0 +1,169 @@
+@(title: String, ci: CompanyInformation)
+
+@main(title) {
+<h2>
+  <a href="/stock/@ci.stockId()">
+  @ci.companyName()
+  (@ci.stockId())
+</a>
+</h2>
+<table>
+  <tbody>
+    <tr>
+      <th> 業種 </th>
+      <td>
+        @ci.businessCategory() &gt
+        @ci.smallBusinessCategory()
+      </td>
+    </tr>
+    <tr>
+      <th> 特色 </th>
+      <td> @ci.companyFeature() </td>
+    </tr>
+    <tr>
+      <th> 決算発表 </th>
+      <td> @ci.announcementDate() </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+
+    <tr>
+      <th> 株価 </th>
+      <th> 時価総額 </th>
+      <th> 発行株数 </th>
+      <th> 出来高 </th>
+      <th> 出来高増率</th>
+    </tr>
+    <tr>
+      <td> @ci.actualStockPrice() </td>
+      <td> @ci.marketCap() </td>
+      <td> @ci.stockNumber() </td>
+      <td> @ci.tradingVolume() </td>
+      <td> @ci.tradingVolumeGrowthRatio() </td>
+    </tr>
+
+    <tr>
+      <th> 推定株価 </th>
+      <th> 割安度 </th>
+      <th> PBR </th>
+      <th> 前期PER </th>
+      <th> 予想PER </th>
+    </tr>
+    <tr>
+      <td> @ci.predictedStockPrice() </td>
+      <td> @ci.undervaluedRate() </td>
+      <td> @ci.pbr() </td>
+      <td> @ci.netPer() </td>
+      <td> @ci.estimateNetPer() </td>
+    </tr>
+
+    <tr>
+      <th> 総資産額 </th>
+      <th> 自己資本比率 </th>
+      <th> 配当金 </th>
+      <th> 配当利回 </th>
+      <th> 予想純利 </th>
+    </tr>
+    <tr>
+      <td> @ci.totalAssets() </td>
+      <td> @ci.ownedCapitalRatio() </td>
+      <td> @ci.dividend() </td>
+      <td> @ci.dividendYield() </td>
+      <td> @ci.estimateNetProfit() </td>
+    </tr>
+
+    <tr>
+      <th> 売上高(前期) </th>
+      <th> 営業利益率 </th>
+      <th> 営業利益 </th>
+      <th> 経常利益 </th>
+      <th> 純利益 </th>
+    </tr>
+    <tr>
+      <td> @ci.salesAmount() </td>
+      <td> @ci.operatingProfitRate() </td>
+      <td> @ci.operatingProfit() </td>
+      <td> @ci.ordinaryProfit() </td>
+      <td> @ci.netProfit() </td>
+    </tr>
+
+    <tr>
+      <th> 売上高(二期前) </th>
+      <th> 営業利益率 </th>
+      <th> 営業利益 </th>
+      <th> 経常利益 </th>
+      <th> 純利益 </th>
+    </tr>
+    <tr>
+      <td> @ci.salesAmount1() </td>
+      <td> @ci.operatingProfitRate1() </td>
+      <td> @ci.operatingProfit1() </td>
+      <td> @ci.ordinaryProfit1() </td>
+      <td> @ci.netProfit1() </td>
+    </tr>
+
+    <tr>
+      <th> 売上高(三期前) </th>
+      <th> 営業利益率 </th>
+      <th> 営業利益 </th>
+      <th> 経常利益 </th>
+      <th> 純利益 </th>
+    </tr>
+    <tr>
+      <td> @ci.salesAmount2() </td>
+      <td> @ci.operatingProfitRate2() </td>
+      <td> @ci.operatingProfit2() </td>
+      <td> @ci.ordinaryProfit2() </td>
+      <td> @ci.netProfit2() </td>
+    </tr>
+
+    <tr>
+      <th> リンク </th>
+      <td>
+        <a href="http://stocks.finance.yahoo.co.jp/stocks/chart/?code=@{ci.stockId()}&ct=w" target=”_blank”>
+          株価推移(1週間)
+        </a>
+      </td>
+      <td>
+        <a href="http://kabutan.jp/stock/news?code=@{ci.stockId()}" target=”_blank”>
+          ニュース
+        </a>
+      </td>
+      <td>
+        <a href="http://textream.yahoo.co.jp/search?query=@{ci.stockId()}" target=”_blank”>
+          掲示板
+        </a>
+      </td>
+      <td>
+        <a href="http://kabutan.jp/stock/finance?code=@{ci.stockId()}&mode=k" target=”_blank”>
+          決算予想
+        </a>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+<img src="http://chart.yahoo.co.jp/?code=@{ci.stockId()}.T&tm=3m&type=c&log=off&size=m&over=m65,m130,s&add=v&comp=" class="chart">
+
+<h3>直近のニュース</h3>
+<table class="news">
+  <tbody>
+  @for(news <- ci.companyNewsList()) {
+  <tr>
+    <td nowrap>
+      @news.announcementDate.toString()
+    </td>
+    <td>
+      <a href="@news.url">
+        @news.title
+      </a>
+    </td>
+    <td nowrap> 登録 </td>
+  </tr>
+  }
+</tbody>
+</table>
+}

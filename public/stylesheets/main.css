@@ -1,0 +1,28 @@
+h1, h2 {
+  background-color: #CCCCCC;
+}
+
+table {
+  width: 100%;
+  max-width: 640px;
+}
+
+table.news {
+  max-width: 900px;
+}
+
+img.chart {
+  width: 100%;
+  max-width: 640px;
+}
+
+table, td, th {
+  border-style: solid;
+  border-width: 1px;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th {
+  background-color: #cccccc;
+}
