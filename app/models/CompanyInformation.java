@@ -1,6 +1,7 @@
 package models;
 
 import java.util.List;
+import java.util.ArrayList;
 import jp.thotta.ifinance.model.CompanyNews;
 import jp.thotta.ifinance.utilizer.JoinedStockInfo;
 
@@ -13,7 +14,11 @@ public class CompanyInformation {
 
   public List<CompanyNews> companyNewsList() {
     if(joinedStockInfo != null) {
-      return joinedStockInfo.companyNewsList;
+      if(joinedStockInfo.companyNewsList != null) {
+        return joinedStockInfo.companyNewsList;
+      } else {
+        return new ArrayList<CompanyNews>();
+      }
     } else {
       return null;
     }

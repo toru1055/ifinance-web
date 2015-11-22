@@ -1,0 +1,24 @@
+@import jp.thotta.ifinance.model.CompanyProfile
+@(title: String, q: String, profileList: List[CompanyProfile])
+
+@main(title) {
+<h1>@title</h1>
+q = @q
+<table class="serp">
+  <tbody>
+  @for(profile <- profileList) {
+  <tr>
+    <td>
+      <a href="/stock/@profile.stockId">
+        @profile.stockId
+      </a>
+    </td>
+    <td nowrap>@profile.companyName</td>
+    <td nowrap>@profile.businessCategory</td>
+    <td nowrap>@profile.smallBusinessCategory</td>
+    <td>@profile.companyFeature</td>
+  </tr>
+  }
+</tbody>
+</table>
+}

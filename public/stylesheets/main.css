@@ -11,6 +11,10 @@ table.news {
   max-width: 900px;
 }
 
+table.serp {
+  max-width: 1400px;
+}
+
 img.chart {
   width: 100%;
   max-width: 640px;
@@ -25,4 +29,5 @@ table, td, th {
 
 th {
   background-color: #cccccc;
+  white-space: nowrap;
 }
