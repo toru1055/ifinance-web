@@ -93,7 +93,7 @@ public class CompanyInformation {
   public String marketCap() {
     if(joinedStockInfo != null &&
         joinedStockInfo.dailyStockPrice != null) {
-      return String.format("%,3d百万株",
+      return String.format("%,3d百万円",
           joinedStockInfo.dailyStockPrice.marketCap);
     } else {
       return null;
@@ -134,7 +134,7 @@ public class CompanyInformation {
     if(joinedStockInfo != null &&
         joinedStockInfo.pbrInverse > 0) {
       return String.format("%.2f倍",
-          joinedStockInfo.pbrInverse);
+          1.0 / joinedStockInfo.pbrInverse);
       } else {
         return null;
       }
