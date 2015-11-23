@@ -6,6 +6,7 @@ import play.twirl.api.Html;
 import play.data.Form;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -38,8 +39,11 @@ public class CompanySearch extends Controller {
           CompanySearchResult.render(
             "検索結果", query, profileList));
     } else {
-      return notFound(
-          "<h1>Page not found</h1>").as("text/html");
+      return ok(
+          CompanySearchResult.render(
+            "検索結果", query, new ArrayList<CompanyProfile>()));
+      //return notFound(
+      //    "<h1>Page not found</h1>").as("text/html");
     }
   }
 }

@@ -1,0 +1,29 @@
+@import jp.thotta.ifinance.model.CompanyNews
+@(title: String, q: String, newsList: List[CompanyNews])
+
+@main(title) {
+<h1>@title</h1>
+<div>
+  <form action="/news">
+    ニュース検索: <input type="text" name="q"/>
+    <input type="submit" value="送信"/>
+  </form>
+</div>
+<h2>ニュース検索結果</h2>
+q = @q
+<table class="news">
+  <tbody>
+  @for(news <- newsList) {
+  <tr>
+    <td nowrap>@news.announcementDate</td>
+    <td nowrap>
+      <a href="/stock/@news.stockId">
+        @news.stockId
+      </a>
+    </td>
+    <td><a href="@news.url" target="_blank">@news.title</a></td>
+  </tr>
+  }
+</tbody>
+</table>
+}
