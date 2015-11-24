@@ -1,6 +1,6 @@
 name := """ifinance-web"""
 
-version := "1.1.0"
+version := "1.1.2"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
 

@@ -14,10 +14,12 @@ import jp.thotta.ifinance.model.Database;
 import jp.thotta.ifinance.model.CompanyNews;
 
 import views.html.*;
+import utils.InputHandler;
 
 public class NewsSearch extends Controller {
   public Result search() {
-    String query = Form.form().bindFromRequest().get("q");
+    String query = InputHandler.sanitize(
+        Form.form().bindFromRequest().get("q"));
     if(query != null) {
       List<CompanyNews> newsList = null;
       try {

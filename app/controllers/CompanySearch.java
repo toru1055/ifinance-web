@@ -14,11 +14,14 @@ import jp.thotta.ifinance.model.Database;
 import jp.thotta.ifinance.model.CompanyProfile;
 
 import views.html.*;
+import utils.InputHandler;
 
 public class CompanySearch extends Controller {
   public Result search() {
-    String stockId = Form.form().bindFromRequest().get("id");
-    String query = Form.form().bindFromRequest().get("q");
+    String stockId = InputHandler.sanitize(
+        Form.form().bindFromRequest().get("id"));
+    String query = InputHandler.sanitize(
+        Form.form().bindFromRequest().get("q"));
     if(stockId != null) {
       return redirect("/stock/" + stockId);
     } else if(query != null) {
