@@ -20,8 +20,8 @@ public class CompanySearch extends Controller {
   public Result search() {
     String stockId = InputHandler.sanitize(
         Form.form().bindFromRequest().get("id"));
-    String query = InputHandler.sanitize(
-        Form.form().bindFromRequest().get("q"));
+    String q = Form.form().bindFromRequest().get("q");
+    String query = InputHandler.sanitize(q);
     if(stockId != null) {
       return redirect("/stock/" + stockId);
     } else if(query != null) {
@@ -40,11 +40,11 @@ public class CompanySearch extends Controller {
       }
       return ok(
           CompanySearchResult.render(
-            "検索結果", query, profileList));
+            "検索結果", q, profileList));
     } else {
       return ok(
           CompanySearchResult.render(
-            "検索結果", query, new ArrayList<CompanyProfile>()));
+            "検索結果", q, new ArrayList<CompanyProfile>()));
       //return notFound(
       //    "<h1>Page not found</h1>").as("text/html");
     }

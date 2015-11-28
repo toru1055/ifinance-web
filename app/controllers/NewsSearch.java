@@ -18,8 +18,8 @@ import utils.InputHandler;
 
 public class NewsSearch extends Controller {
   public Result search() {
-    String query = InputHandler.sanitize(
-        Form.form().bindFromRequest().get("q"));
+    String q = Form.form().bindFromRequest().get("q");
+    String query = InputHandler.sanitize(q);
     if(query != null) {
       List<CompanyNews> newsList = null;
       try {
@@ -36,12 +36,11 @@ public class NewsSearch extends Controller {
       }
       return ok(
           NewsSearchResult.render(
-            "ニュース検索結果", query, newsList));
+            "ニュース検索結果", q, newsList));
     } else {
       return ok(
           NewsSearchResult.render(
-            "ニュース検索", query,
-            new ArrayList<CompanyNews>()));
+            "ニュース検索", q, new ArrayList<CompanyNews>()));
       //return notFound(
       //    "<h1>Page not found</h1>").as("text/html");
     }
