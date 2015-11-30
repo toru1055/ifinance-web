@@ -6,5 +6,5 @@ target
 /.project
 /.settings
 /RUNNING_PID
-/sample.db
+/*.db
 *.swp

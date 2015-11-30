@@ -17,6 +17,7 @@ import views.html.*;
 import utils.InputHandler;
 
 public class CompanySearch extends Controller {
+  @Security.Authenticated(Secured.class)
   public Result search() {
     String stockId = InputHandler.sanitize(
         Form.form().bindFromRequest().get("id"));

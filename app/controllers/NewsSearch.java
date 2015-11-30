@@ -17,6 +17,7 @@ import views.html.*;
 import utils.InputHandler;
 
 public class NewsSearch extends Controller {
+  @Security.Authenticated(Secured.class)
   public Result search() {
     String q = Form.form().bindFromRequest().get("q");
     String query = InputHandler.sanitize(q);

@@ -17,6 +17,7 @@ import views.html.*;
 import models.CompanyInformation;
 
 public class CompanyDetail extends Controller {
+  @Security.Authenticated(Secured.class)
   public Result show(int stockId) {
     JoinedStockInfo jsi = null;
     try {
