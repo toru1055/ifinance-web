@@ -29,4 +29,8 @@ public class User extends Model {
       .findUnique();
       //.eq("password", password).findUnique();
   }
+
+  public static User findByEmail(String email) {
+    return find.where().eq("email", email).findUnique();
+  }
 }

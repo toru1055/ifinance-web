@@ -1,0 +1,49 @@
+@import jp.thotta.ifinance.model.CompanyNews
+@import jp.thotta.ifinance.model.CompanyProfile
+@(title: String, cn: CompanyNews, cp: CompanyProfile, form: Form[RemindNews.Reminder], newsReminder: NewsReminder)
+
+@main(title) {
+<h1>@title</h1>
+<h2>
+  <a href="/stock/@cp.stockId">
+    @cp.companyName (@cp.stockId)
+  </a>
+</h2>
+<h3>ニュース詳細</h3>
+<table class="news">
+  <tbody>
+    <tr>
+      <th> タイトル </th>
+      <td>
+        <a href="@cn.url" target="_blank"> @cn.title </a>
+      </td>
+    </tr>
+    <tr>
+      <th> 発表日 </th>
+      <td> @cn.announcementDate </td>
+    </tr>
+    <tr>
+      <th> 作成日 </th>
+      <td> @cn.createdDate </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>リマインド詳細</h3>
+@helper.form(routes.RemindNews.edit(cn.id)) {
+<p>
+リマインドスケジュール: </br>
+@if(newsReminder != null) {
+<input type="date" name="remindDate" value="@newsReminder.getRemindDate()">
+} else {
+<input type="date" name="remindDate" value="">
+}
+</p>
+メッセージ: </br>
+<textarea name="message" rows="4" cols="50">@if(newsReminder != null) {
+@newsReminder.message
+}</textarea>
+</br>
+<button type="submit">更新</button>
+}
+}
