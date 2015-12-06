@@ -29,20 +29,38 @@
   </tbody>
 </table>
 
+@if(newsReminder != null) {
 <h3>リマインド詳細</h3>
+<table class="news">
+  <tbody>
+    <tr>
+      <th>イベント発生日</th>
+      <td>@newsReminder.getRemindDate()</td>
+    </tr>
+    <tr>
+      <th>リマインドメッセージ</th>
+      <td>
+        <textarea disabled readonly wrap="soft" rows="4" cols="50">
+@newsReminder.message
+        </textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+}
+
+<h3>リマインド編集</h3>
 @helper.form(routes.RemindNews.edit(cn.id)) {
 <p>
-リマインドスケジュール: </br>
+イベント発生日: </br>
 @if(newsReminder != null) {
 <input type="date" name="remindDate" value="@newsReminder.getRemindDate()">
 } else {
 <input type="date" name="remindDate" value="">
 }
 </p>
-メッセージ: </br>
-<textarea name="message" rows="4" cols="50">@if(newsReminder != null) {
-@newsReminder.message
-}</textarea>
+リマインドメッセージ: </br>
+<textarea name="message" rows="4" cols="50">@if(newsReminder != null) {@newsReminder.message}</textarea>
 </br>
 <button type="submit">更新</button>
 }

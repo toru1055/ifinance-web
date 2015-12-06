@@ -23,7 +23,8 @@ public class NewsReminder extends Model {
     public Date createDate;
   @Formats.DateTime(pattern="yyyy-MM-dd")
     public Date remindDate;
-  public String message;
+  @Column(columnDefinition = "TEXT")
+    public String message;
 
   public static Finder<Long, NewsReminder> find =
     new Finder<Long, NewsReminder>(NewsReminder.class);

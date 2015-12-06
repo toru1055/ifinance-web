@@ -10,7 +10,7 @@ create table news_reminder (
   stock_id                  integer,
   create_date               timestamp,
   remind_date               timestamp,
-  message                   varchar(255))
+  message                   TEXT)
 ;
 
 create table user (
