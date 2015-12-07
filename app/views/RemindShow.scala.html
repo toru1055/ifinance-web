@@ -1,12 +1,12 @@
 @import jp.thotta.ifinance.model.CompanyNews
 @import jp.thotta.ifinance.model.CompanyProfile
-@(title: String, cn: CompanyNews, cp: CompanyProfile, form: Form[RemindNews.Reminder], newsReminder: NewsReminder)
+@(title: String, news: CompanyNews, profile: CompanyProfile, form: Form[RemindNews.Reminder], remindList: List[NewsReminder], user: User)
 
 @main(title) {
 <h1>@title</h1>
 <h2>
-  <a href="/stock/@cp.stockId">
-    @cp.companyName (@cp.stockId)
+  <a href="/stock/@profile.stockId">
+    @profile.companyName (@profile.stockId)
   </a>
 </h2>
 <h3>ニュース詳細</h3>
@@ -15,53 +15,69 @@
     <tr>
       <th> タイトル </th>
       <td>
-        <a href="@cn.url" target="_blank"> @cn.title </a>
+        <a href="@news.url" target="_blank"> @news.title </a>
       </td>
     </tr>
     <tr>
       <th> 発表日 </th>
-      <td> @cn.announcementDate </td>
+      <td> @news.announcementDate </td>
     </tr>
     <tr>
       <th> 作成日 </th>
-      <td> @cn.createdDate </td>
+      <td> @news.createdDate </td>
     </tr>
   </tbody>
 </table>
 
-@if(newsReminder != null) {
-<h3>リマインド詳細</h3>
+@if(remindList.size() > 0) {
+<h3>リマインド一覧</h3>
 <table class="news">
   <tbody>
     <tr>
       <th>イベント発生日</th>
-      <td>@newsReminder.getRemindDate()</td>
-    </tr>
-    <tr>
       <th>リマインドメッセージ</th>
+      <th>更新</th>
+    </tr>
+    @for(newsReminder <- remindList) {
+    @helper.form(routes.RemindNews.edit(newsReminder.id)) {
+    <tr>
       <td>
-        <textarea disabled readonly wrap="soft" rows="4" cols="50">
-@newsReminder.message
-        </textarea>
+        @if(user.id == newsReminder.userId) {
+        <input type="date" name="remindDate" value="@newsReminder.getRemindDate()">
+        } else {
+        <input type="date" name="remindDate" readonly disabled value="@newsReminder.getRemindDate()">
+        }
+      </td>
+      <td>
+        @if(user.id == newsReminder.userId) {
+        <textarea class="intable" name="message" wrap="soft" rows="4" cols="50">@newsReminder.message</textarea>
+        } else {
+        <textarea class="intable" name="message" readonly disabled wrap="soft" rows="4" cols="50">@newsReminder.message</textarea>
+        }
+      </td>
+      <td>
+        @if(user.id == newsReminder.userId) {
+        <button type="submit">更新</button>
+        }
       </td>
     </tr>
+    <input type="hidden" name="newsId" value="@news.id">
+    }
+    }
   </tbody>
 </table>
 }
 
-<h3>リマインド編集</h3>
-@helper.form(routes.RemindNews.edit(cn.id)) {
+<h3>リマインド登録</h3>
+@helper.form(routes.RemindNews.edit(-1)) {
 <p>
 イベント発生日: </br>
-@if(newsReminder != null) {
-<input type="date" name="remindDate" value="@newsReminder.getRemindDate()">
-} else {
 <input type="date" name="remindDate" value="">
-}
+<input type="hidden" name="newsId" value="@news.id">
 </p>
 リマインドメッセージ: </br>
-<textarea name="message" rows="4" cols="50">@if(newsReminder != null) {@newsReminder.message}</textarea>
+<textarea class="intable" name="message" rows="8" cols="40"></textarea>
 </br>
-<button type="submit">更新</button>
+<button type="submit">登録</button>
 }
 }

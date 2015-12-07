@@ -1,8 +1,11 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+
+import jp.thotta.ifinance.common.MyDate;
 
 import com.avaje.ebean.Model;
 import play.data.format.*;
@@ -71,5 +74,13 @@ public class NewsReminder extends Model {
   {
     return find.where().eq("news_id", newsId)
       .eq("user_id", userId).findUnique();
+  }
+
+  public static List<NewsReminder> findListByNewsId(Long newsId)
+  {
+    return find.where().eq("news_id", newsId)
+      .ge("remind_date", MyDate.getToday().getTimeInMillis())
+      .orderBy("remind_date asc")
+      .findList();
   }
 }
