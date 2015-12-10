@@ -1,0 +1,60 @@
+@import jp.thotta.ifinance.model.CompanyNews
+@(remindList: List[NewsReminder], showStockId: Boolean, user: User, showNewsId: Boolean = false)
+
+<h3>リマインド一覧</h3>
+<table class="news">
+  <tbody>
+    <tr>
+      @if(showStockId) {
+      <th>銘柄ID</th>
+      }
+      <th>イベント発生日</th>
+      <th>リマインドメッセージ</th>
+      <th>更新</th>
+      @if(showNewsId) {
+      <th>ニュースID</th>
+      }
+    </tr>
+
+    @for(newsReminder <- remindList) {
+    @helper.form(routes.RemindNews.edit(newsReminder.id)) {
+    <tr>
+      @if(showStockId) {
+      <td>
+        <a href="/stock/@newsReminder.stockId">
+          @newsReminder.stockId
+        </a>
+      </td>
+      }
+      <td>
+        @if(user.id == newsReminder.userId) {
+        <input type="date" name="remindDate" value="@newsReminder.getRemindDate()">
+        } else {
+        <input type="date" name="remindDate" readonly disabled value="@newsReminder.getRemindDate()">
+        }
+      </td>
+      <td>
+        @if(user.id == newsReminder.userId) {
+        <textarea class="intable" name="message" wrap="soft" rows="10" cols="50">@newsReminder.message</textarea>
+        } else {
+        <textarea class="intable" name="message" readonly disabled wrap="soft" rows="10" cols="50">@newsReminder.message</textarea>
+        }
+      </td>
+      <td>
+        @if(user.id == newsReminder.userId) {
+        <button type="submit">更新</button>
+        }
+      </td>
+      @if(showNewsId) {
+      <td>
+        <a href="/remind/@newsReminder.newsId">
+          @newsReminder.newsId
+        </a>
+      </td>
+      }
+    </tr>
+    <input type="hidden" name="newsId" value="@newsReminder.newsId">
+    }
+    }
+  </tbody>
+</table>

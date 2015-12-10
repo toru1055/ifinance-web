@@ -14,7 +14,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import views.html.*;
-import models.CompanyInformation;
+import models.*;
 
 public class CompanyDetail extends Controller {
   @Security.Authenticated(Secured.class)
@@ -34,9 +34,13 @@ public class CompanyDetail extends Controller {
     }
     if(jsi != null) {
       CompanyInformation ci = new CompanyInformation(jsi);
+      User user = User.findByEmail(request().username());
+      List<NewsReminder> remindList =
+        NewsReminder.findByStockId(stockId);
       return ok(
           CompanyDetailShow.render(
-            ci.companyName() + "の銘柄詳細", ci));
+            ci.companyName() + "の銘柄詳細",
+            ci, remindList, user));
     } else {
       return notFound(
           "<h1>Page not found</h1>").as("text/html");

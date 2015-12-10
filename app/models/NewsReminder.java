@@ -83,4 +83,20 @@ public class NewsReminder extends Model {
       .orderBy("remind_date asc")
       .findList();
   }
+
+  public static List<NewsReminder> findByStockId(Integer stockId)
+  {
+    return find.where().eq("stock_id", stockId)
+      .ge("remind_date", MyDate.getToday().getTimeInMillis())
+      .orderBy("remind_date asc")
+      .findList();
+  }
+
+  public static List<NewsReminder> findEffective()
+  {
+    return find.where()
+      .ge("remind_date", MyDate.getToday().getTimeInMillis())
+      .orderBy("remind_date asc")
+      .findList();
+  }
 }

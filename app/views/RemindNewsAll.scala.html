@@ -1,0 +1,10 @@
+@(title: String, remindList: List[NewsReminder], user: User)
+
+@main(title) {
+<h1>@title</h1>
+
+@if(remindList.size() > 0) {
+@RemindNewsList(remindList, true, user, true)
+}
+
+}

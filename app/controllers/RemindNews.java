@@ -22,6 +22,17 @@ import utils.InputHandler;
 public class RemindNews extends Controller {
 
   @Security.Authenticated(Secured.class)
+    public Result showAll() {
+      User user = User.findByEmail(request().username());
+      List<NewsReminder> remindList =
+        NewsReminder.findEffective();
+      return ok(
+          RemindNewsAll.render(
+            "リマインド一覧",
+            remindList, user));
+    }
+
+  @Security.Authenticated(Secured.class)
     public Result show(Long newsId) {
       CompanyNews news = null;
       CompanyProfile profile = null;

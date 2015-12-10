@@ -1,4 +1,4 @@
-@(title: String, ci: CompanyInformation)
+@(title: String, ci: CompanyInformation, remindList: List[NewsReminder], user: User)
 
 @main(title) {
 <h2>
@@ -146,7 +146,16 @@
 
   </tbody>
 </table>
+<p>
 <img src="http://chart.yahoo.co.jp/?code=@{ci.stockId()}.T&tm=3m&type=c&log=off&size=m&over=m65,m130,s&add=v&comp=" class="chart">
+</p>
+<p>
+<img src="http://chart.yahoo.co.jp/?code=@{ci.stockId()}.T&tm=5d&vip=off" class="chart">
+</p>
+
+@if(remindList.size() > 0) {
+@RemindNewsList(remindList, false, user, true)
+}
 
 <h3>直近のニュース</h3>
 <table class="news">
@@ -157,7 +166,7 @@
       @news.announcementDate.toString()
     </td>
     <td>
-      <a href="@news.url">
+      <a href="@news.url" target="_blank">
         @news.title
       </a>
     </td>

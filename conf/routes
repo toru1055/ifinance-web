@@ -10,6 +10,7 @@ GET	/login	controllers.Application.login()
 POST	/login	controllers.Application.authenticate()
 GET	/logout	controllers.Application.logout()
 GET /remind/:id controllers.RemindNews.show(id: Long)
+GET /remind controllers.RemindNews.showAll()
 POST /remind/:id/edit controllers.RemindNews.edit(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
