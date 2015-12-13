@@ -1,4 +1,4 @@
-@(title: String, ci: CompanyInformation, remindList: List[NewsReminder], user: User)
+@(title: String, ci: CompanyInformation, remindList: List[NewsReminder], user: User, remindListNotBindNews: List[NewsReminder])
 
 @main(title) {
 <h2>
@@ -157,6 +157,10 @@
 @RemindNewsList(remindList, false, user, true)
 }
 
+@if(remindListNotBindNews.size() > 0) {
+@RemindNewsList(remindListNotBindNews, false, user, false)
+}
+
 <h3>直近のニュース</h3>
 <table class="news">
   <tbody>
@@ -179,4 +183,17 @@
   }
 </tbody>
 </table>
+
+<h3>企業に対するリマインド登録</h3>
+@helper.form(routes.CompanyDetail.editReminder(ci.stockId(), -1)) {
+<p>
+イベント発生日: </br>
+<input type="date" name="remindDate" value="">
+</p>
+リマインドメッセージ: </br>
+<textarea class="intable" name="message" rows="8" cols="40"></textarea>
+</br>
+<button type="submit">登録</button>
+}
+
 }

@@ -12,6 +12,7 @@ GET	/logout	controllers.Application.logout()
 GET /remind/:id controllers.RemindNews.show(id: Long)
 GET /remind controllers.RemindNews.showAll()
 POST /remind/:id/edit controllers.RemindNews.edit(id: Long)
+POST /stock/:id/:remindId controllers.CompanyDetail.editReminder(id: Integer, remindId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -17,44 +17,52 @@
     </tr>
 
     @for(newsReminder <- remindList) {
-    @helper.form(routes.RemindNews.edit(newsReminder.id)) {
-    <tr>
-      @if(showStockId) {
-      <td>
-        <a href="/stock/@newsReminder.stockId">
-          @newsReminder.stockId
-        </a>
-      </td>
-      }
-      <td>
-        @if(user.id == newsReminder.userId) {
-        <input type="date" name="remindDate" value="@newsReminder.getRemindDate()">
-        } else {
-        <input type="date" name="remindDate" readonly disabled value="@newsReminder.getRemindDate()">
-        }
-      </td>
-      <td>
-        @if(user.id == newsReminder.userId) {
-        <textarea class="intable" name="message" wrap="soft" rows="10" cols="50">@newsReminder.message</textarea>
-        } else {
-        <textarea class="intable" name="message" readonly disabled wrap="soft" rows="10" cols="50">@newsReminder.message</textarea>
-        }
-      </td>
-      <td>
-        @if(user.id == newsReminder.userId) {
-        <button type="submit">更新</button>
-        }
-      </td>
-      @if(showNewsId) {
-      <td>
-        <a href="/remind/@newsReminder.newsId">
-          @newsReminder.newsId
-        </a>
-      </td>
-      }
-    </tr>
-    <input type="hidden" name="newsId" value="@newsReminder.newsId">
+    @if(newsReminder.newsId == 0) {
+      <form action="@routes.CompanyDetail.editReminder(newsReminder.stockId, newsReminder.id)" method="post">
+    } else {
+      <form action="@routes.RemindNews.edit(newsReminder.id)" method="post">
     }
-    }
-  </tbody>
-</table>
+
+        <tr>
+          @if(showStockId) {
+          <td>
+            <a href="/stock/@newsReminder.stockId">
+              @newsReminder.stockId
+            </a>
+          </td>
+          }
+          <td>
+            @if(user.id == newsReminder.userId) {
+            <input type="date" name="remindDate" value="@newsReminder.getRemindDate()">
+            } else {
+            <input type="date" name="remindDate" readonly disabled value="@newsReminder.getRemindDate()">
+            }
+          </td>
+          <td>
+            @if(user.id == newsReminder.userId) {
+            <textarea class="intable" name="message" wrap="soft" rows="10" cols="50">@newsReminder.message</textarea>
+            } else {
+            <textarea class="intable" name="message" readonly disabled wrap="soft" rows="10" cols="50">@newsReminder.message</textarea>
+            }
+          </td>
+          <td>
+            @if(user.id == newsReminder.userId) {
+            <button type="submit">更新</button>
+            }
+          </td>
+          @if(showNewsId) {
+          <td>
+            @if(newsReminder.newsId != 0) {
+            <a href="/remind/@newsReminder.newsId">
+              @newsReminder.newsId
+            </a>
+            }
+          </td>
+          }
+        </tr>
+
+        <input type="hidden" name="newsId" value="@newsReminder.newsId">
+      </form>
+      }
+    </tbody>
+  </table>
